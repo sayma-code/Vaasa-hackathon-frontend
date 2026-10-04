@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Auto-tagged digital twin</title>
+<link rel="stylesheet" href="style.css?v=6">
+<script type="importmap">{"imports": {"three": "./lib/three.module.js"}}</script>
+</head>
+<body>
+<canvas id="scene"></canvas>
+<div id="pins"></div>
+
+<header>
+  <div>
+    <h1>Auto-tagged digital twin</h1>
+    <p id="summary">Loading…</p>
+  </div>
+  <div class="modes" role="group" aria-label="View">
+    <button id="mode-overview" class="active">Overview</button>
+    <button id="mode-inside">Walk inside</button>
+    <a href="detect.html" id="detector-link" hidden>Photo detector</a>
+  </div>
+</header>
+
+<aside id="list">
+  <h2>Assets found automatically</h2>
+  <ul id="asset-list"></ul>
+  <p class="hint" id="hint"></p>
+</aside>
+
+<aside id="panel" hidden>
+  <button id="close" aria-label="Close">×</button>
+  <p class="eyebrow" id="p-product"></p>
+  <h2 id="p-title"></h2>
+  <img id="p-crop" alt="Close-up of the asset from the scan">
+  <dl id="p-facts"></dl>
+  <h3>Documentation</h3>
+  <ul id="p-docs"></ul>
+  <h3>Maintenance</h3>
+  <dl id="p-maint"></dl>
+  <h3>How it was found</h3>
+  <dl id="p-detect"></dl>
+  <button id="p-inside" class="primary">See it in the scan</button>
+</aside>
+
+<div id="loading">Loading the scan…</div>
+<script type="module" src="app.js?v=6"></script>
+</body>
+</html>
