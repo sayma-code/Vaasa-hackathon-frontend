@@ -1,4 +1,4 @@
-import { openDocuments } from './docviewer.js?v=6';
+import { openDocuments } from './docviewer.js?v=9';
 
 const $ = (id) => document.getElementById(id);
 const drop = $('drop'), input = $('file'), status = $('status');

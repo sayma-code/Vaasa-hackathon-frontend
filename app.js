@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from './lib/OrbitControls.js';
-import { openDocuments, backend } from './docviewer.js?v=6';
+import { openDocuments, backend } from './docviewer.js?v=9';
 
 // Scan colours and photos are shown as stored, without colour conversion.
 THREE.ColorManagement.enabled = false;
@@ -38,7 +38,6 @@ async function init() {
     `${data.tags.length} assets tagged from ${data.sweeps.length} scan positions, with no manual tagging`;
   buildMarkers();
   buildPins();
-  buildList();
   resetOverview();
   render();
   await loadCloud();
@@ -91,20 +90,6 @@ function buildPins() {
   }
 }
 
-function buildList() {
-  data.tags.forEach((tag, i) => {
-    const li = document.createElement('li');
-    const b = document.createElement('button');
-    b.innerHTML = `<span class="dot">${i + 1}</span><span><span class="t"></span><small></small></span>`;
-    b.querySelector('.t').textContent = tag.title;
-    b.querySelector('small').textContent = [tag.panel_function, tag.cabinet].filter(Boolean).join(' · ');
-    b.addEventListener('click', () => select(tag));
-    li.appendChild(b);
-    $('asset-list').appendChild(li);
-    tag.listButton = b;
-  });
-}
-
 function facts(dl, rows) {
   dl.replaceChildren();
   for (const [k, v] of rows) {
@@ -120,7 +105,6 @@ function facts(dl, rows) {
 function select(tag) {
   state.selected = tag;
   for (const p of pins) p.el.classList.toggle('active', p.tag === tag);
-  for (const t of data.tags) t.listButton.classList.toggle('active', t === tag);
 
   $('p-product').textContent = tag.product;
   $('p-title').textContent = tag.title;
@@ -156,7 +140,6 @@ $('close').addEventListener('click', () => {
   $('panel').hidden = true;
   state.selected = null;
   for (const p of pins) p.el.classList.remove('active');
-  for (const t of data.tags) t.listButton.classList.remove('active');
 });
 $('p-inside').addEventListener('click', () => {
   const tag = state.selected;
